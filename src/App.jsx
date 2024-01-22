@@ -1,13 +1,15 @@
-import './App.css';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Home from "./pages/Home";
 import About from "./pages/About";
+import "./index.css";
 
 function App() {
   return (
     <BrowserRouter>
-        <header className='flex flex-row space-x-10'>
-            <h2>Header goes here</h2>
+        <header>
+            <h2 className='text-red-500'>
+                Header goes here
+            </h2>
             <div>
                 <Link to='/'>Home</Link>
                 <Link to='/about'>About</Link>
