@@ -1,10 +1,13 @@
-import React from "react";
+import { useEffect, React } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function NotFound() {
-    return (
-        <div className="flex justify-center items-center bg-red-500 h-[200px]
-        ">
-            <h1>NOT FOUND:(</h1>
-        </div>
-    )
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        setTimeout(() => {
+            navigate("/"); // -1: página anterior
+        }, 1000)
+    }, [])
+    return <h1>Not Found</h1>
 }
