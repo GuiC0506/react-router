@@ -8,6 +8,7 @@ import Shop from "./pages/Shop";
 import ShopList from "./pages/Shoplist";
 import NewShop from "./pages/NewShop";
 import ShopLayout from "./pages/ShopLayout";
+import { useEffect, useRef, useState } from "react";
 
 function App() {
     // it is possible to have multiple routes with the same path,
@@ -24,6 +25,26 @@ function App() {
     // when back button is clicked, instead of one.
     // it is like you have never been on the current page. Does not keep track
     // of the current page.
+    
+    const [showModal, setShowModal] = useState(false);
+
+    const messageRef = useRef();
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if(messageRef.current && !messageRef.current.contains(event.target)) {
+                setShowModal(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mouseup", handleClickOutside);
+        };
+
+    }, []);
+
     return (
         <>
             <Routes location="/books">
@@ -58,6 +79,13 @@ function App() {
                 </Route>
                 <Route path="*" element={<NotFound />} />
             </Routes>
+            <button onClick={() => setShowModal(prevModal => !prevModal)}>
+                Show message
+            </button>
+            {showModal && (
+                <div ref={messageRef}
+                    style={{background: "red", width:250, height: 300, marginTop:15}}>HELLO USER</div>
+            )}
         </>
     )
 }
